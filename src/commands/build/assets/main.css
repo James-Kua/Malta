@@ -196,3 +196,76 @@ img {
 a {
     text-decoration: none !important;
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(24, 24, 24);
+        color: rgb(210, 210, 210);
+    }
+
+    #mobile-top {
+        border-bottom: 1px solid rgb(60, 60, 60);
+    }
+
+    #mobile-header-title, #sidebar-title {
+        color: rgb(255, 255, 255);
+    }
+
+    #sidebar {
+        background-color: rgb(32, 32, 32);
+    }
+
+    #content {
+        background-color: rgb(28, 28, 28);
+    }
+
+    .nav-section-title {
+        color: rgb(180, 180, 180);
+    }
+
+    .nav-section-link {
+        color: rgb(140, 140, 140);
+    }
+
+    .current-nav-section-link {
+        color: rgb(100, 140, 255);
+    }
+
+    .nav-section-link:hover,
+    .current-nav-section-link:hover {
+        text-decoration: underline;
+    }
+
+    a {
+        color: rgb(140, 140, 255);
+    }
+
+    #sidebar-nav {
+        background-color: rgb(28, 28, 28);
+    }
+
+    code {
+        background-color: rgb(40, 40, 40);
+        color: rgb(220, 220, 220);
+    }
+
+    #mobile-menu-nav {
+        background-color: rgb(28, 28, 28);
+    }
+
+    #toggle-mobile-menu-button {
+        background-color: rgb(50, 50, 50);
+    }
+
+    main {
+        background-color: rgb(28, 28, 28);
+    }
+
+    .codeblock > code {
+        background-color: rgb(28, 28, 28);
+    }
+
+    main .codeblock {
+        background-color: rgb(28, 28, 28) !important; 
+    }
+}
