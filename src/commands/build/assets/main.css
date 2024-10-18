@@ -199,7 +199,7 @@ a {
 
 @media (prefers-color-scheme: dark) {
     body {
-        background-color: rgb(24, 24, 24);
+        background-color: rgb(28, 28, 28);
         color: rgb(210, 210, 210);
     }
 
@@ -212,7 +212,7 @@ a {
     }
 
     #sidebar {
-        background-color: rgb(32, 32, 32);
+        background-color: rgb(28, 28, 28);
     }
 
     #content {
@@ -245,7 +245,7 @@ a {
     }
 
     code {
-        background-color: rgb(40, 40, 40);
+        background-color: rgb(28, 28, 28);
         color: rgb(220, 220, 220);
     }
 
@@ -266,6 +266,6 @@ a {
     }
 
     main .codeblock {
-        background-color: rgb(28, 28, 28) !important; 
+        background-color: rgb(28, 28, 28) !important;
     }
 }
