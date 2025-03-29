@@ -126,33 +126,44 @@
             </section>
           </nav>
         </aside>
-        <main>{{.Markdown}}</main>
+        <main id="markdown-content">{{.Markdown}}</main>
       </div>
     </div>
+
+    <script>
+      document.getElementById("toggle-mobile-menu-button").addEventListener("click", (e) => {
+        const mobileMenuNav = document.getElementById("mobile-menu-nav");
+        if (mobileMenuNav.classList.contains("hidden")) {
+          mobileMenuNav.classList.remove("hidden");
+          document.getElementById("toggle-mobile-menu-button-close-icon").classList.remove("hidden");
+          document.getElementById("toggle-mobile-menu-button-menu-icon").classList.add("hidden");
+        } else {
+          mobileMenuNav.classList.add("hidden");
+          document.getElementById("toggle-mobile-menu-button-close-icon").classList.add("hidden");
+          document.getElementById("toggle-mobile-menu-button-menu-icon").classList.remove("hidden");
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("pre > code").forEach((codeBlock) => {
+          const pre = codeBlock.parentElement;
+          const copyButton = document.createElement("button");
+
+          copyButton.innerText = "copy";
+          copyButton.className = "copy-btn";
+          copyButton.addEventListener("click", () => {
+            navigator.clipboard.writeText(codeBlock.innerText).then(() => {
+              copyButton.innerText = "copied!";
+              setTimeout(() => { copyButton.innerText = "Copy"; }, 2000);
+            }).catch(() => {
+              copyButton.innerText = "Failed";
+            });
+          });
+
+          pre.style.position = "relative";
+          pre.appendChild(copyButton);
+        });
+      });
+    </script>
   </body>
 </html>
-
-<script>
-  document
-    .getElementById("toggle-mobile-menu-button")
-    .addEventListener("click", (e) => {
-      const mobileMenuNav = document.getElementById("mobile-menu-nav");
-      if (mobileMenuNav.classList.contains("hidden")) {
-        mobileMenuNav.classList.remove("hidden");
-        document
-          .getElementById("toggle-mobile-menu-button-close-icon")
-          .classList.remove("hidden");
-        document
-          .getElementById("toggle-mobile-menu-button-menu-icon")
-          .classList.add("hidden");
-      } else {
-        mobileMenuNav.classList.add("hidden");
-        document
-          .getElementById("toggle-mobile-menu-button-close-icon")
-          .classList.add("hidden");
-        document
-          .getElementById("toggle-mobile-menu-button-menu-icon")
-          .classList.remove("hidden");
-      }
-    });
-</script>

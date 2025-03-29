@@ -197,6 +197,26 @@ a {
     text-decoration: none !important;
 }
 
+.copy-btn {
+    position: absolute;
+    top: 16px;
+    right: 0.5rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 0.2rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.copy-btn:hover {
+    opacity: 1;
+}
+
 @media (prefers-color-scheme: dark) {
     body {
         background-color: rgb(28, 28, 28);

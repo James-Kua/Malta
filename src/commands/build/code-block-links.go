@@ -97,6 +97,7 @@ func (r codeBlockLinksRenderer) renderCustomCodeBlockLinks(w util.BufWriter, sou
 	language := string(codeBlock.Language(source))
 	w.WriteString("<div id=\"code-container\">")
 	w.WriteString(fmt.Sprintf("<span id=\"codeblock-language\">%s</span>", language))
+	w.WriteString(`<button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>`)
 	w.WriteString("<pre class=\"codeblock\"><code>")
 	w.WriteString(html)
 	w.WriteString("</code></pre>")
