@@ -9,6 +9,7 @@
 
 ### Notes
 - Files are served from the `/pages` directory
+- To add favicon, add `favicon.ico` file in the same folder as `malta.config.json`
 
 ### Example `malta.config.json`
 
@@ -27,7 +28,7 @@
     {
       "title": "Links",
       "pages": [
-        ["GitHub", "https://github.com/James-Kua/your-repo-link"]
+        ["GitHub", "https://github.com/your-repo-link"]
       ]
     }
   ]

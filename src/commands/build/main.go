@@ -40,6 +40,8 @@ var mainCss []byte
 //go:embed assets/markdown.css
 var markdownCss []byte
 
+var faviconPath = "favicon.ico"
+
 func BuildCommand() int {
 	configJson, err := os.ReadFile("malta.config.json")
 	if err != nil {
@@ -189,6 +191,18 @@ func BuildCommand() int {
 
 	os.WriteFile("dist/main.css", mainCss, os.ModePerm)
 	os.WriteFile("dist/markdown.css", markdownCss, os.ModePerm)
+
+	// Copy favicon.ico if it exists
+	if _, err := os.Stat(faviconPath); err == nil {
+		input, err := os.ReadFile(faviconPath)
+		if err != nil {
+			panic(err)
+		}
+		if err := os.MkdirAll("dist", os.ModePerm); err != nil {
+			panic(err)
+		}
+		os.WriteFile("dist/favicon.ico", input, os.ModePerm)
+	}
 	return 0
 }
 
