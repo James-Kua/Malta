@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/adrg/frontmatter v0.2.0
-	github.com/yuin/goldmark v1.7.8
+	github.com/yuin/goldmark v1.7.13
 )
 
 require github.com/alecthomas/chroma v0.10.0
