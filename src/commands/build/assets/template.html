@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content="custom" />
-    <title>{{.Title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Malta" />
+    <title>{{.Title}} | {{.Name}}</title>
     <meta name="description" content="{{.Description}}" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
@@ -13,7 +14,6 @@
     {{end}}
     <meta name="twitter:title" content="{{.Title}}" />
     <meta name="twitter:description" content="{{.Description}}" />
-    <!-- <meta property="og:image" content="" /> -->
 
     <meta property="og:site_name" content="{{.Name}}" />
     <meta property="og:title" content="{{.Title}}" />
@@ -27,42 +27,13 @@
     <div id="mobile-top">
       <div id="mobile-top-container">
         <header id="mobile-header">
-          <a href="/" id="mobile-header-title">{{.Name}}</a>
-          <button
-            id="toggle-mobile-menu-button"
-            class="h-8 w-8 rounded p-2 lg:hidden"
-            aria-label="Toggle menu"
-          >
-            <svg
-              id="toggle-mobile-menu-button-menu-icon"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="#2c2c2c"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              ></path>
+          <a href="/" id="mobile-header-title" style="font-weight: 700; text-decoration: none; color: var(--text-color);">{{.Name}}</a>
+          <button id="toggle-mobile-menu-button" aria-label="Toggle menu">
+            <svg id="toggle-mobile-menu-button-menu-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 5H17M3 10H17M3 15H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <svg
-              id="toggle-mobile-menu-button-close-icon"
-              class="hidden"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 14"
-            >
-              <path
-                stroke="#2c2c2c"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-              ></path>
+            <svg id="toggle-mobile-menu-button-close-icon" class="hidden" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
         </header>
@@ -73,15 +44,7 @@
             <ul class="nav-section-links-list">
               {{range $page := $section.Pages}}
               <li class="nav-section-links-list-item">
-                {{if eq $.CurrentNavPageHref $page.Href}}
-                <a href="{{$page.Href}}" class="current-nav-section-link"
-                  >{{$page.Title}}</a
-                >
-                {{else}}
-                  <a href="{{$page.Href}}" class="nav-section-link"
-                    >{{$page.Title}}</a
-                  >
-                {{end}}
+                <a href="{{$page.Href}}" class="{{if eq $.CurrentNavPageHref $page.Href}}current-nav-section-link{{else}}nav-section-link{{end}}">{{$page.Title}}</a>
               </li>
               {{end}}
             </ul>
@@ -90,6 +53,7 @@
         </nav>
       </div>
     </div>
+
     <div id="content">
       <div id="content-container">
         <aside id="sidebar">
@@ -101,20 +65,13 @@
               <ul class="nav-section-links-list">
                 {{range $page := $section.Pages}}
                 <li class="nav-section-links-list-item">
-                  {{if eq $.CurrentNavPageHref $page.Href}}
-                  <a href="{{$page.Href}}" class="current-nav-section-link"
-                    >{{$page.Title}}</a
-                  >
-                  {{else}}
-                  <a href="{{$page.Href}}" class="nav-section-link"
-                    >{{$page.Title}}</a
-                  >
-                  {{end}}
+                  <a href="{{$page.Href}}" class="{{if eq $.CurrentNavPageHref $page.Href}}current-nav-section-link{{else}}nav-section-link{{end}}">{{$page.Title}}</a>
                 </li>
                 {{end}}
               </ul>
             </section>
             {{end}}
+            {{if .Headings}}
             <section>
               <h2 class="nav-section-title">On this page</h2>
               <ul class="nav-section-links-list">
@@ -125,41 +82,62 @@
                 {{end}}
               </ul>
             </section>
+            {{end}}
           </nav>
         </aside>
-        <main id="markdown-content">{{.Markdown}}</main>
+        <main id="markdown-content">
+          {{.Markdown}}
+        </main>
       </div>
     </div>
 
     <script>
+      function copyToClipboard(button) {
+        const container = button.closest("#code-container") || button.parentElement;
+        const code = container.querySelector("code");
+        if (!code) return;
+
+        navigator.clipboard.writeText(code.innerText).then(() => {
+          button.blur();
+          button.innerText = "Copied!";
+          setTimeout(() => {
+            button.innerText = "Copy";
+          }, 2000);
+        }).catch(() => {
+          button.innerText = "Error";
+          setTimeout(() => {
+            button.innerText = "Copy";
+          }, 2000);
+        });
+      }
+
       document.getElementById("toggle-mobile-menu-button").addEventListener("click", (e) => {
         const mobileMenuNav = document.getElementById("mobile-menu-nav");
+        const menuIcon = document.getElementById("toggle-mobile-menu-button-menu-icon");
+        const closeIcon = document.getElementById("toggle-mobile-menu-button-close-icon");
+        
         if (mobileMenuNav.classList.contains("hidden")) {
           mobileMenuNav.classList.remove("hidden");
-          document.getElementById("toggle-mobile-menu-button-close-icon").classList.remove("hidden");
-          document.getElementById("toggle-mobile-menu-button-menu-icon").classList.add("hidden");
+          closeIcon.classList.remove("hidden");
+          menuIcon.classList.add("hidden");
         } else {
           mobileMenuNav.classList.add("hidden");
-          document.getElementById("toggle-mobile-menu-button-close-icon").classList.add("hidden");
-          document.getElementById("toggle-mobile-menu-button-menu-icon").classList.remove("hidden");
+          closeIcon.classList.add("hidden");
+          menuIcon.classList.remove("hidden");
         }
       });
 
       document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll("pre > code").forEach((codeBlock) => {
-          const pre = codeBlock.parentElement;
-          const copyButton = document.createElement("button");
+        document.querySelectorAll("pre").forEach((pre) => {
+          if (pre.parentElement.id === "code-container") return;
+          
+          const codeBlock = pre.querySelector("code");
+          if (!codeBlock) return;
 
-          copyButton.innerText = "copy";
+          const copyButton = document.createElement("button");
+          copyButton.innerText = "Copy";
           copyButton.className = "copy-btn";
-          copyButton.addEventListener("click", () => {
-            navigator.clipboard.writeText(codeBlock.innerText).then(() => {
-              copyButton.innerText = "copied!";
-              setTimeout(() => { copyButton.innerText = "Copy"; }, 2000);
-            }).catch(() => {
-              copyButton.innerText = "Failed";
-            });
-          });
+          copyButton.onclick = function() { copyToClipboard(this); };
 
           pre.style.position = "relative";
           pre.appendChild(copyButton);
